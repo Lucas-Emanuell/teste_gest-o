@@ -1,0 +1,18 @@
+{
+  "fornecedores": [
+    {
+      "id": "2",
+      "nome": "Construmais Materiais",
+      "descricao": "Materiais de construção civil e aluguel de ferramentas.",
+      "endereco": "Rua dos Engenheiros, 205 - Belo Horizonte, MG",
+      "email": "comercial@construmais.com.br"
+    },
+    {
+      "id": "3",
+      "nome": "HigienePro Distribuidora",
+      "descricao": "Produtos de limpeza profissional e descartáveis hospitalares.",
+      "endereco": "Alameda das Indústrias, 98 - Curitiba, PR",
+      "email": "vendas@higienepro.com.br"
+    }
+  ]
+}
