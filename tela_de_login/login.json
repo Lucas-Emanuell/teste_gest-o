@@ -1,0 +1,55 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "nome": "Administrador",
+      "login": "admin",
+      "email": "admin@example.com",
+      "senha": "admin123",
+      "created_at": "2023-01-01T00:00:00Z",
+      "planId": null
+    },
+    {
+      "id": 2,
+      "nome": "Usuário Teste",
+      "login": "teste",
+      "email": "teste@example.com",
+      "senha": "teste123",
+      "created_at": "2023-01-15T00:00:00Z",
+      "planId": null
+    },
+    {
+      "id": "72d2",
+      "nome": "lucas e",
+      "login": "lucas",
+      "senha": "lucas123",
+      "email": "Lucasemanuelcmb@gmail.com",
+      "createdAt": "2025-06-16T19:51:22.906Z",
+      "planId": null
+    }
+  ],
+  "plans": [
+    {
+      "id": 1,
+      "name": "Básico",
+      "price": 19.90,
+      "features": ["Recurso 1", "Recurso 2"],
+      "description": "Recursos essenciais"
+    },
+    {
+      "id": 2,
+      "name": "Avançado",
+      "price": 39.90,
+      "features": ["Recurso 1", "Recurso 2", "Recurso 3"],
+      "description": "Para quem quer mais"
+    },
+    {
+      "id": 3,
+      "name": "Premium",
+      "price": 79.90,
+      "features": ["Todos os recursos", "Suporte 24/7"],
+      "description": "Experiência completa"
+    }
+  ],
+  "sessions": []
+}

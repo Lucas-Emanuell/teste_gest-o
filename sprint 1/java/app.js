@@ -1,130 +1,86 @@
-$(document).ready(function() {
-    // Recupera usuário logado
-    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado') || {});
-    let precoTotal = 0;
-    
-    // Atualiza status dos botões com base no usuário
-    function atualizarStatusBotoes() {
-        $('.botao-item').each(function() {
-            const $botao = $(this);
-            const beneficioId = $botao.data('beneficio');
-            const estaAtivo = usuarioLogado.beneficios && usuarioLogado.beneficios[beneficioId];
-            
-            $botao.toggleClass('ativo', estaAtivo);
-            $botao.find('.status-premium').text(`(Premium: ${estaAtivo ? 'true' : 'false'})`);
-            
-            if (estaAtivo) {
-                precoTotal += parseFloat($botao.data('valor'));
-            }
-        });
-        
-        $('#precoTotal').text(precoTotal.toFixed(2));
-    }
-    
-    // Inicializa os botões
-    atualizarStatusBotoes();
-    
-    // Configura clique nos botões
-    $('.botao-item').click(function() {
-        if (!usuarioLogado.id) {
-            alert('Por favor, faça login antes de selecionar benefícios.');
-            window.location.href = 'login.html';
-            return;
-        }
-        
-        const $botao = $(this);
-        const beneficioId = $botao.data('beneficio');
-        const valor = parseFloat($botao.data('valor'));
-        const estaAtivo = $botao.hasClass('ativo');
-        
-        if (!estaAtivo) {
-            // Ativa o benefício
-            $botao.addClass('ativo');
-            precoTotal += valor;
-            
-            if (!usuarioLogado.beneficios) {
-                usuarioLogado.beneficios = {};
-            }
-            usuarioLogado.beneficios[beneficioId] = true;
-        } else {
-            // Desativa o benefício
-            $botao.removeClass('ativo');
-            precoTotal -= valor;
-            delete usuarioLogado.beneficios[beneficioId];
-        }
-        
-        // Atualiza visualização
-        $botao.find('.status-premium').text(`(Premium: ${!estaAtivo ? 'true' : 'false'})`);
-        $('#precoTotal').text(precoTotal.toFixed(2));
-        
-        // Atualiza no servidor
-        atualizarUsuarioNoServidor();
-    });
-    
-    // Botão "Marcar Todos"
-    $('#marcarTodos').click(function() {
-        if (!usuarioLogado.id) {
-            alert('Por favor, faça login antes de selecionar benefícios.');
-            window.location.href = 'login.html';
-            return;
-        }
-        
-        const todosAtivos = $('.botao-item.ativo').length === $('.botao-item').length;
-        
-        $('.botao-item').each(function() {
-            const $botao = $(this);
-            const beneficioId = $botao.data('beneficio');
-            const valor = parseFloat($botao.data('valor'));
-            
-            if (!todosAtivos && !$botao.hasClass('ativo')) {
-                $botao.addClass('ativo');
-                precoTotal += valor;
-                
-                if (!usuarioLogado.beneficios) {
-                    usuarioLogado.beneficios = {};
-                }
-                usuarioLogado.beneficios[beneficioId] = true;
-            } else if (todosAtivos && $botao.hasClass('ativo')) {
-                $botao.removeClass('ativo');
-                precoTotal -= valor;
-                delete usuarioLogado.beneficios[beneficioId];
-            }
-            
-            $botao.find('.status-premium').text(`(Premium: ${!todosAtivos ? 'true' : 'false'})`);
-        });
-        
-        $('#precoTotal').text(precoTotal.toFixed(2));
-        atualizarUsuarioNoServidor();
-    });
-    
-    // Botão Comprar
-    $('#comprar').click(function() {
-        if (!usuarioLogado.id) {
-            alert('Por favor, faça login antes de comprar.');
-            window.location.href = 'login.html';
-            return;
-        }
-        
-        if (precoTotal <= 0) {
-            alert('Selecione pelo menos um benefício!');
-            return;
-        }
-        
-        // Atualiza o usuário como premium (opcional)
-        usuarioLogado.premium = true;
-        atualizarUsuarioNoServidor().then(() => {
-            localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
-            window.location.href = 'obrigado.html';
-        });
-    });
-    
-    // Função para atualizar usuário no JSON Server
-    function atualizarUsuarioNoServidor() {
-        return $.ajax({
-            url: `http://localhost:3000/usuarios/${usuarioLogado.id}`,
-            type: 'PUT',
-            contentType: 'application/json',
-            data: JSON.stringify(usuarioLogado)
-        });
-    }
+const express = require('express');
+const bodyParser = require('body-parser');
+const fs = require('fs');
+const path = require('path');
+
+const app = express();
+app.use(bodyParser.json());
+
+const DB_PATH = path.join(__dirname, 'db.json');
+
+// Helper para ler o db.json
+function readDb() {
+  return JSON.parse(fs.readFileSync(DB_PATH, 'utf8'));
+}
+
+// Helper para escrever no db.json
+function writeDb(data) {
+  fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
+}
+
+// Rota para comprar um plano
+app.post('/purchase-plan', (req, res) => {
+  const { userId, planId } = req.body;
+  const db = readDb();
+  
+  // Verificar se o plano existe
+  const planExists = db.plans.some(plan => plan.id === planId);
+  if (!planExists) {
+    return res.status(404).json({ success: false, message: 'Plano não encontrado' });
+  }
+  
+  // Verificar se o usuário já tem esse plano ativo
+  const now = new Date();
+  const existingPlan = db.userPlans.find(up => 
+    up.userId === userId && 
+    up.planId === planId && 
+    up.isActive && 
+    new Date(up.expiryDate) > now
+  );
+  
+  if (existingPlan) {
+    return res.json({ success: false, message: 'Você já possui este plano ativo.' });
+  }
+  
+  // Adicionar o plano ao usuário (1 mês de validade)
+  const expiryDate = new Date();
+  expiryDate.setMonth(expiryDate.getMonth() + 1);
+  
+  const newUserPlan = {
+    id: db.userPlans.length > 0 ? Math.max(...db.userPlans.map(up => up.id)) + 1 : 1,
+    userId,
+    planId,
+    purchaseDate: new Date().toISOString(),
+    expiryDate: expiryDate.toISOString(),
+    isActive: true
+  };
+  
+  db.userPlans.push(newUserPlan);
+  writeDb(db);
+  
+  res.json({ success: true, plan: newUserPlan });
 });
+
+// Rota para verificar os planos do usuário
+app.get('/user-plans/:userId', (req, res) => {
+  const { userId } = req.params;
+  const db = readDb();
+  const now = new Date();
+  
+  const activePlans = db.userPlans
+    .filter(up => up.userId === parseInt(userId) && up.isActive && new Date(up.expiryDate) > now)
+    .map(up => {
+      const planDetails = db.plans.find(p => p.id === up.planId);
+      return { ...up, planDetails };
+    });
+  
+  res.json({ success: true, plans: activePlans });
+});
+
+// Rota para listar todos os planos disponíveis
+app.get('/plans', (req, res) => {
+  const db = readDb();
+  res.json({ success: true, plans: db.plans });
+});
+
+app.listen(3000, () => console.log('Servidor rodando na porta 3000'));
