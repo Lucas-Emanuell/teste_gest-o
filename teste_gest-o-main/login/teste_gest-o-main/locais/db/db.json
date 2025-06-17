@@ -1,0 +1,31 @@
+{
+  "locais": [
+    {
+      "id": "L001",
+      "nome": "pratileira 1",
+      "responsavel": "João",
+      "capacidade": 100,
+      "status": "Vazio",
+      "produto": "Nenhum",
+      "descricao": "Estoque principal da empresa"
+    },
+    {
+      "id": "1",
+      "nome": "pratileira 1",
+      "responsavel": "João",
+      "capacidade": "100",
+      "status": "Vazio",
+      "produto": "Nenhum",
+      "descricao": "Estoque principal da empresa"
+    },
+    {
+      "id": "id",
+      "nome": "nome",
+      "responsavel": "alguem",
+      "capacidade": "10",
+      "status": "Cheio",
+      "produto": "produto",
+      "descricao": "algo"
+    }
+  ]
+}

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obrigado!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+            background: radial-gradient(circle, #003366, #0A0A0A);
+            color: #D4AF37;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 800px;
+        }
+        h1 {
+            font-size: 3.5em;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.5em;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+        }
+        .brilho {
+            animation: pulsar 2s infinite alternate;
+        }
+        @keyframes pulsar {
+            from { opacity: 0.8; }
+            to { opacity: 1; text-shadow: 0 0 30px rgba(212, 175, 55, 0.9); }
+        }
+        .beneficios-container {
+            background: rgba(0, 51, 102, 0.3);
+            border: 1px solid #D4AF37;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+        .beneficios-lista {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .beneficios-lista li {
+            font-size: 1.2em;
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(212, 175, 55, 0.3);
+            position: relative;
+            padding-left: 30px;
+        }
+        .beneficios-lista li:before {
+            content: "✓";
+            color: #D4AF37;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        .beneficios-lista li:last-child {
+            border-bottom: none;
+        }
+        .detalhes-compra {
+            margin-top: 20px;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+    </style>
+    <script src="java/jquery-3.7.1.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="brilho">✨ OBRIGADO! ✨</h1>
+        <p>Sua compra foi muito valiosa para a gestão inteligente. Aproveite suas novas funcionalidades!</p>
+        
+        <div class="beneficios-container">
+            <h2>Seus Benefícios Ativos</h2>
+            <ul class="beneficios-lista" id="lista-beneficios">
+                <!-- Benefícios serão inseridos aqui via JavaScript -->
+            </ul>
+            
+            <div class="detalhes-compra" id="detalhes-compra">
+                <!-- Detalhes da compra serão inseridos aqui -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Tenta obter os dados do localStorage primeiro
+            const dadosLocais = localStorage.getItem('premiumUser');
+            let dadosCompra = dadosLocais ? JSON.parse(dadosLocais) : null;
+            
+            // Se não encontrar no localStorage, tenta pela URL (JSON Server)
+            if (!dadosCompra) {
+                const urlParams = new URLSearchParams(window.location.search);
+                const userId = urlParams.get('userId');
+                
+                if (userId) {
+                    $.getJSON(`http://localhost:3000/usuarios/${userId}`)
+                        .done(function(data) {
+                            mostrarDetalhes(data);
+                        })
+                        .fail(function() {
+                            mostrarMensagemErro();
+                        });
+                    return;
+                }
+            } else {
+                mostrarDetalhes(dadosCompra);
+            }
+            
+            function mostrarDetalhes(dados) {
+                // Mapeia os benefícios para nomes amigáveis
+                const beneficiosNomes = {
+                    'armazenamento': 'Mais Armazenamento',
+                    'contatos': 'Contatos Ilimitados com Vendedores',
+                    'informacoes': 'Informações Detalhadas sobre Vendas',
+                    'ilimitado': 'Itens Ilimitados'
+                };
+                
+                // Preenche a lista de benefícios
+                const lista = $('#lista-beneficios');
+                lista.empty();
+                
+                if (dados.beneficios) {
+                    for (const [key, value] of Object.entries(dados.beneficios)) {
+                        if (value) {
+                            lista.append(`<li>${beneficiosNomes[key] || key}</li>`);
+                        }
+                    }
+                }
+                
+                // Mostra detalhes da compra
+                const detalhes = $('#detalhes-compra');
+                detalhes.html(`
+                    <p><strong>Valor Total:</strong> R$${dados.total.toFixed(2)}</p>
+                    <p><strong>Data da Compra:</strong> ${new Date(dados.data).toLocaleDateString('pt-BR')}</p>
+                `);
+            }
+            
+            function mostrarMensagemErro() {
+                $('#lista-beneficios').html('<li>Não foi possível carregar os detalhes dos benefícios.</li>');
+                $('#detalhes-compra').html('<p>Entre em contato com nosso suporte para verificar sua compra.</p>');
+            }
+        });
+    </script>
+</body>
+</html>

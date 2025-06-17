@@ -1,0 +1,201 @@
+/* Estilos gerais */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f9ff;
+  color: #333333;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* Container principal */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Cabeçalho */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px 0;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+  color: #005cb2;
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.header p {
+  color: #666666;
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+/* Container de planos */
+.plans-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 30px;
+}
+
+/* Card de plano */
+.plan {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 4px solid #1e88e5;
+}
+
+.plan:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.plan h2 {
+  color: #005cb2;
+  margin-top: 0;
+  font-size: 1.8rem;
+}
+
+.plan .price {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1e88e5;
+  margin: 20px 0;
+}
+
+.plan .price span {
+  font-size: 1rem;
+  color: #666666;
+}
+
+.plan ul {
+  padding-left: 20px;
+  margin: 20px 0;
+}
+
+.plan ul li {
+  margin-bottom: 10px;
+  color: #555555;
+}
+
+/* Botão de seleção */
+.buy-btn {
+  background-color: #1e88e5;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.buy-btn:hover {
+  background-color: #005cb2;
+}
+
+/* Destaque para plano recomendado */
+.plan.featured {
+  border-top-color: #4caf50;
+  position: relative;
+}
+
+.plan.featured::before {
+  content: "Recomendado";
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background-color: #4caf50;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* Página de perfil */
+.profile-container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 800px;
+  margin: 30px auto;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.profile-header h1 {
+  color: #005cb2;
+  margin: 0;
+}
+
+.plan-badge {
+  background-color: #1e88e5;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-left: 15px;
+}
+
+.user-info p {
+  margin: 8px 0;
+  color: #555555;
+}
+
+.user-info strong {
+  color: #333333;
+}
+
+.plan-details {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f0f7ff;
+  border-radius: 8px;
+  border-left: 4px solid #1e88e5;
+}
+
+.plan-details h3 {
+  color: #005cb2;
+  margin-top: 0;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .plans-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .plan {
+    width: 100%;
+    max-width: 350px;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+  }
+}

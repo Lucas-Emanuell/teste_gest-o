@@ -1,0 +1,18 @@
+{
+  "categoria": [
+    {
+      "nome": "ALIMENTO",
+      "descricao": "feijao",
+      "data": "2025-06-21",
+      "vinculada": false,
+      "id": "d356"
+    },
+    {
+      "id": "d5bf",
+      "nome": "ALIMENTO",
+      "descricao": "arroz",
+      "data": "2025-06-16",
+      "vinculada": true
+    }
+  ]
+}

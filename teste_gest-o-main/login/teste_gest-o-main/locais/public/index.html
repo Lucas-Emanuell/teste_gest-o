@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestão de Estoques - Locais</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <script src="app.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <header class="d-flex align-items-center justify-content-between p-3">
+    <img rel="logo" style="height: 75px;" src="img/Logotipo.png" class="me-3">
+    <div class="text-center flex-grow-1">
+      <h1 class="m-0">Gestão de Estoques</h1>
+      <p class="m-0">Gerenciar Locais de Armazenamento</p>
+    </div>
+  </header>
+<div class="container my-5">
+  <div class="form-container">
+    <h2>Cadastrar / Editar Local</h2>
+    <form id="localForm">
+      <div class="row g-3">
+        <div class="col-md-3">
+          <input type="text" class="form-control" id="idLocal" placeholder="ID do Local (ex: L001)" required>
+        </div>
+        <div class="col-md-3">
+          <input type="text" class="form-control" id="nomeLocal" placeholder="Nome do Local" required>
+        </div>
+        <div class="col-md-3">
+          <input type="text" class="form-control" id="responsavel" placeholder="Responsável" required>
+        </div>
+        <div class="col-md-3">
+          <input type="number" class="form-control" id="capacidade" placeholder="Capacidade Máxima" required>
+        </div>
+        <div class="col-md-4">
+          <select class="form-select" id="status">
+            <option value="">Status</option>
+            <option value="Cheio">Cheio</option>
+            <option value="Vazio">Vazio</option>
+          <option value="Vazio">Outro</option>
+            
+          </select>
+        </div>
+        <div class="col-md-8">
+          <input type="text" class="form-control" id="produto" placeholder="Produto Alocado">
+        </div>
+        <div class="col-12">
+          <textarea class="form-control" id="descricaoLocal" rows="2" placeholder="Descrição"></textarea>
+        </div>
+      </div>
+      <div class="mt-3">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <button type="reset" class="btn btn-secondary ms-2">Cancelar</button>
+      </div>
+    </form>
+  </div>
+<div class="table-container">
+  <h2>Locais Cadastrados</h2>
+
+  <div class="mb-3">
+    <input type="text" id="pesquisaLocal" class="form-control" placeholder="Pesquisar por nome, responsável ou status...">
+  </div>
+
+  <table class="table table-bordered table-striped mt-3">
+    <thead class="table-primary">
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Responsável</th>
+        <th>Capacidade</th>
+        <th>Status</th>
+        <th>Produto</th>
+        <th>Descrição</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody id="localTable">
+      </tbody>
+    </table>
+  </div>
+</div>
+<footer>
+  &copy; 2025 - Sistema de Gestão de Estoque
+</footer>
+</body>
+</html>

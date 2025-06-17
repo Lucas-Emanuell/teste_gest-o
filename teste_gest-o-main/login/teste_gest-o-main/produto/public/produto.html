@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestão de Estoque - Produtos</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrapper">
+  <header>
+    <h1>Gestão Inteligente</h1>
+    <p>Cadastro e Gerenciamento de Produtos</p>
+  </header>
+
+  <main>
+    <section class="form-section">
+      <h2>Cadastrar Produto</h2>
+      <form id="produtoForm">
+          <input type="text" id="nome" placeholder="Nome" required>
+          <input type="text" id="sku" placeholder="Código SKU" required>
+          <input type="text" id="categoria" placeholder="Categoria" required>
+          <input type="number" id="preco-venda" placeholder="Preço de Venda" required>
+          <input type="number" id="estoque" placeholder="Quantidade em Estoque" required>
+          <input type="text" id="fornecedor" placeholder="Fornecedor" required>
+          <input type="date" id="data-entrada" required>
+        <button type="submit">Salvar Produto</button>
+      </form>
+    </section>
+
+    <section class="lista-section">
+      <h2>Produtos Cadastrados</h2>
+       <input type="text" id="campoBusca" placeholder="Pesquisar por nome ou categoria..." style="width: 100%; padding: 8px; margin-bottom: 15px; border-radius: 8px; border-color: rgb(46, 94, 228);">
+      <table>
+        <thead>
+          <tr>
+            <th>SKU</th>
+            <th>Nome Produto</th>
+            <th>Categoria</th>
+            <th>Preço Venda</th>
+            <th>Quantidade</th>
+            <th>Fornecedor</th>
+            <th>Data Entrada</th>
+            <th>Excluir/Editar</th>
+          </tr>
+        </thead>
+        <tbody id="tabela-produtos"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 - Gestão Inteligente </p>
+  </footer>
+  </div>
+
+ <script src="app.js"></script>
+
+</body>
+</html>

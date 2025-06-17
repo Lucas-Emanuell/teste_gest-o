@@ -1,0 +1,32 @@
+body { 
+    background-color: #f2f6fc; 
+}
+
+header, footer {
+
+    background-color: #2dcfff;
+    text-align: center;
+    padding: 15px;
+
+}
+
+.form-container{
+
+    background-color: rgb(244,244,170);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+
+}
+
+.table-container {
+
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.delete-button { background-color: #ff4c4c; color: white; }

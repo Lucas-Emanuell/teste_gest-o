@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolha Seu Plano</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   
+    <h1>Escolha seu Plano Premium</h1>
+    
+    <div class="plans-container">
+        <div class="plan">
+            <h2>Básico</h2>
+            <p>Recursos essenciais</p>
+            <div class="price">R$ 19,90/mês</div>
+            <ul>
+                <li>Recurso 1</li>
+                <li>Recurso 2</li>
+            </ul>
+            <button onclick="selectPlan(1)">Selecionar</button>
+        </div>
+        
+        <div class="plan">
+            <h2>Avançado</h2>
+            <p>Para quem quer mais</p>
+            <div class="price">R$ 39,90/mês</div>
+            <ul>
+                <li>Recurso 1</li>
+                <li>Recurso 2</li>
+                <li>Recurso 3</li>
+            </ul>
+            <button onclick="selectPlan(2)">Selecionar</button>
+        </div>
+        
+        <div class="plan">
+            <h2>Premium</h2>
+            <p>Experiência completa</p>
+            <div class="price">R$ 79,90/mês</div>
+            <ul>
+                <li>Todos os recursos</li>
+                <li>Suporte 24/7</li>
+            </ul>
+            <button onclick="selectPlan(3)">Selecionar</button>
+        </div>
+    </div>
+<script src="java/app.js"></script>
+    <script>
+        async function selectPlan(planId) {
+    try {
+        // Obter ID do usuário logado (você precisa implementar isso)
+        const userId = getLoggedUserId(); 
+        
+        // Atualiza o usuário com o plano selecionado
+        const response = await fetch(`http://localhost:3000/users/${userId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                planId: planId
+            })
+        });
+        
+        if (response.ok) {
+            // Opcional: registrar na tabela de subscriptions
+            await registerSubscription(userId, planId);
+            
+            alert('Plano selecionado com sucesso!');
+            window.location.href = 'profile.html';
+        } else {
+            alert('Erro ao selecionar plano');
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao conectar com o servidor');
+    }
+}
+
+// Função auxiliar para registrar assinatura (opcional)
+async function registerSubscription(userId, planId) {
+    const response = await fetch('http://localhost:3000/subscriptions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            userId: userId,
+            planId: planId,
+            startDate: new Date().toISOString(),
+            status: "active"
+        })
+    });
+    return response.json();
+}
+    </script>
+    <a href="profile.html"><button></button></a>
+</body>
+</html>
