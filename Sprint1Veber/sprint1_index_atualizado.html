@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Gestão Inteligente - Pedidos</title>
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Gestão Inteligente - Pedidos
+  </title>
   <style>
-    body {
+   body {
       font-family: Arial, sans-serif;
       background-color: #e0f0ff;
       display: flex;
@@ -105,43 +107,59 @@
       background-color: #cc7a00;
     }
   </style>
-</head>
-<body>
+ </head>
+ <body>
 
+  <ul class="list-group mt-4" id="lista-registros">
+  </ul>
   <div class="container">
-    <h1>PEDIDOS</h1>
-
-    <form id="pedidoForm">
-      <label for="produto">Produto:</label>
-      <input type="text" id="produto" name="produto" required>
-
-      <label for="quantidade">Quantidade:</label>
-      <input type="number" id="quantidade" name="quantidade" min="1" required>
-
-      <label for="fornecedor">Fornecedor:</label>
-      <input type="text" id="fornecedor" name="fornecedor" required>
-
-      <button type="submit" id="btnPrincipal">Adicionar Pedido</button>
-    </form>
-
-    <h2>Lista de Pedidos</h2>
-    <table id="tabelaPedidos">
-      <thead>
-        <tr>
-          <th>Produto</th>
-          <th>Quantidade</th>
-          <th>Fornecedor</th>
-          <th>Ação</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Linhas de pedidos aparecem aqui -->
-      </tbody>
-    </table>
+   <h1>
+    PEDIDOS
+   </h1>
+   <form id="pedidoForm">
+    <label for="produto">
+     Produto:
+    </label>
+    <input id="produto" name="produto" required="" type="text"/>
+    <label for="quantidade">
+     Quantidade:
+    </label>
+    <input id="quantidade" min="1" name="quantidade" required="" type="number"/>
+    <label for="fornecedor">
+     Fornecedor:
+    </label>
+    <input id="fornecedor" name="fornecedor" required="" type="text"/>
+    <button id="btnPrincipal" type="submit">
+     Adicionar Pedido
+    </button>
+   </form>
+   <h2>
+    Lista de Pedidos
+   </h2>
+   <table id="tabelaPedidos">
+    <thead>
+     <tr>
+      <th>
+       Produto
+      </th>
+      <th>
+       Quantidade
+      </th>
+      <th>
+       Fornecedor
+      </th>
+      <th>
+       Ação
+      </th>
+     </tr>
+    </thead>
+    <tbody>
+     <!-- Linhas de pedidos aparecem aqui -->
+    </tbody>
+   </table>
   </div>
-<script src="/teste_gest_o/javascript/app_universal.js"></script>
   <script>
-    const form = document.getElementById('pedidoForm');
+   const form = document.getElementById('pedidoForm');
     const tabela = document.getElementById('tabelaPedidos').getElementsByTagName('tbody')[0];
     const btnPrincipal = document.getElementById('btnPrincipal');
 
@@ -227,6 +245,29 @@
         console.error('Erro ao carregar pedidos:', error);
       });
   </script>
+  <script>
+   document.addEventListener("DOMContentLoaded", () => {
+  const lista = document.getElementById("lista-registros");
+  const busca = document.getElementById("busca");
 
-</body>
+  const carregarDados = async () => {
+    const res = await fetch("http://localhost:3000/sprint1dados");
+    const dados = await res.json();
+    const termo = busca.value.toLowerCase();
+    lista.innerHTML = "";
+    dados
+      .filter(d => JSON.stringify(d).toLowerCase().includes(termo))
+      .forEach(d => {
+        const li = document.createElement("li");
+        li.className = "list-group-item";
+        li.textContent = JSON.stringify(d);
+        lista.appendChild(li);
+      });
+  };
+
+  busca.addEventListener("input", carregarDados);
+  carregarDados();
+});
+  </script>
+ </body>
 </html>

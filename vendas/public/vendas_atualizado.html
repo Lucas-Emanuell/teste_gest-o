@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Vendas Registradas
+  </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+   header, footer {
+      background-color: #0d6efd;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+ </head>
+ <body class="bg-light">
+  <header>
+   <h1>
+    Gestão Inteligente
+   </h1>
+   <p>
+    Lista de vendas
+   </p>
+  </header>
+  <div class="container mt-5">
+   <div id="msg">
+   </div>
+   <h2 class="mb-4">
+    Vendas Realizadas
+   </h2>
+   <div id="vendasContainer">
+   </div>
+   <a class="btn btn-secondary mt-3" href="index.html">
+    ← Voltar
+   </a>
+  </div>
+  <footer class="mt-5">
+   <p>
+    @ 2025 - Sistema de Gestão de Estoque
+   </p>
+  </footer>
+  <script src="/teste_gest_o/javascript/app_universal.js"></script>
+  <script>
+   const API_URL = "http://localhost:3000/";
+
+function displayMessage(text, tipo = 'warning') {
+    const mensagem = document.getElementById("msg");
+      mensagem.innerHTML = `<div class="alert alert-${tipo}">${text}</div>`;
+    }
+
+function agruparPorData(vendas) {
+    return vendas.reduce((agrupado, venda) => {
+        const data = venda.data;
+        if (!agrupado[data]) agrupado[data] = [];
+        agrupado[data].push(venda);
+        return agrupado;
+    }, {});
+}
+
+function excluirVenda(id) {
+    if (!confirm("Tem certeza que deseja excluir esta venda?")) return;
+
+    fetch(`${API_URL}vendas/${id}`, {
+        method: "DELETE"
+    })
+    .then(res => {
+        const data = document.querySelector('h5');
+        if(data === '')
+            data.remove();
+
+        if (!res.ok) throw new Error("Erro ao excluir venda");
+        document.getElementById(`card-venda-${id}`).remove();
+        window.location.reload();
+    })
+    .catch(err => {
+        console.error(err);
+        displayMessage("Erro ao excluir venda.");
+    });
+}
+
+function salvarEdicao(id) {
+    const card = document.getElementById(`card-venda-${id}`);
+    const formaPagamento = card.querySelector(`select[name="formaPagamento-${id}"]`).value;
+
+    const itens = Array.from(card.querySelectorAll(`.item-edit-${id}`)).map(row => {
+        return {
+            codigo: row.dataset.codigo,
+            descricao: row.dataset.descricao,
+            und: row.dataset.und,
+            preco: parseFloat(row.dataset.preco),
+            quantidade: parseInt(row.querySelector("input").value),
+            total: parseFloat(row.dataset.preco) * parseInt(row.querySelector("input").value)
+        };
+    });
+
+    fetch(`${API_URL}vendas/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            pagamento: formaPagamento,
+            itens
+        })
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("Erro ao salvar edição.");
+        displayMessage("Venda atualizada com sucesso!");
+        setTimeout(() =>{
+            location.reload();
+        }, 3000);
+    })
+    .catch(err => {
+        console.error(err);
+        displayMessage("Erro ao salvar alterações.");
+    });
+}
+
+function criarCardVenda(venda) {
+    const total = venda.itens.reduce((soma, p) => soma + (p.preco * p.quantidade), 0).toFixed(2);
+    const produtosHTML = venda.itens.map((p, i) => `
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <strong>${p.descricao}</strong><br>
+                <small>Cod: ${p.codigo} - Quant: ${p.quantidade} × R$ ${p.preco.toFixed(2)}</small>
+            </div>
+            <span class="badge bg-primary rounded-pill">R$ ${(p.preco * p.quantidade).toFixed(2)}</span>
+        </li>
+    `).join("");
+
+    const editarHTML = venda.itens.map(p => `
+        <div class="d-flex justify-content-between align-items-center border p-2 item-edit-${venda.id}" 
+             data-codigo="${p.codigo}" data-descricao="${p.descricao}" data-und="${p.und}" data-preco="${p.preco}">
+            <div>
+                <strong>${p.descricao}</strong><br>
+                <small>Cod: ${p.codigo} - Unidade: ${p.und} - Preço: R$ ${p.preco.toFixed(2)}</small>
+            </div>
+            <input type="number" min="1" value="${p.quantidade}" class="form-control w-25 ms-3">
+        </div>
+    `).join("");
+
+    return `
+    <div class="card mb-3" id="card-venda-${venda.id}">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <div data-bs-toggle="collapse" data-bs-target="#venda-${venda.id}" role="button">
+                Venda em ${venda.data} - Pagamento: ${venda.pagamento} - Total: R$ ${total}
+            </div>
+            <div>
+                <button class="btn btn-sm btn-warning btn-editar me-2" data-id="${venda.id}" data-bs-toggle="collapse" data-bs-target="#editar-${venda.id}">Editar</button>
+                <button class="btn btn-sm btn-danger btn-excluir" data-id="${venda.id}">Excluir</button>
+            </div>
+        </div>
+        <div id="venda-${venda.id}" class="collapse">
+            <ul class="list-group list-group-flush">
+                ${produtosHTML}
+            </ul>
+        </div>
+
+        <!-- Formulário de edição -->
+        <div class="collapse" id="editar-${venda.id}">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="formaPagamento-${venda.id}" class="form-label">Forma de Pagamento</label>
+                    <select class="form-select" name="formaPagamento-${venda.id}">
+                        <option value="pix" ${venda.pagamento === "pix" ? "selected" : ""}>Pix</option>
+                        <option value="dinheiro" ${venda.pagamento === "dinheiro" ? "selected" : ""}>Dinheiro</option>
+                        <option value="Cartão de Crédito" ${venda.pagamento === "Cartão de Crédito" ? "selected" : ""}>Cartão de Crédito</option>
+                        <option value="Cartão de Débito" ${venda.pagamento === "Cartão de Débito" ? "selected" : ""}>Cartão de Débito</option>
+                    </select>
+                </div>
+                ${editarHTML}
+                <button type="button" class="btn btn-success mt-3" onclick="salvarEdicao('${venda.id}')">Salvar Alterações</button>
+            </div>
+        </div>
+    </div>
+    `;
+}
+
+fetch(`${API_URL}vendas`)
+    .then(res => res.json())
+    .then(vendas => {
+        const container = document.getElementById("vendasContainer");
+        if (!vendas.length) {
+            container.innerHTML = "<p class='text-muted'>Nenhuma venda registrada.</p>";
+            return;
+        }
+
+        const agrupado = agruparPorData(vendas);
+
+        Object.keys(agrupado).sort().reverse().forEach(data => {
+            const vendasDoDia = agrupado[data];
+            const cardsHTML = vendasDoDia.map(criarCardVenda).join("");
+            container.innerHTML += `
+                <h5 class="mt-4">${data}</h5>
+                ${cardsHTML}
+            `;
+        });
+
+        document.querySelectorAll(".btn-excluir").forEach(botao => {
+            botao.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const id = botao.dataset.id;
+                excluirVenda(id);
+            });
+        });
+    })
+    .catch(err => {
+        console.error("Erro ao carregar vendas:", err);
+        document.getElementById("vendasContainer").innerHTML = `<div class="alert alert-danger">Erro ao carregar vendas.</div>`;
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <div class="mb-3">
+   <label class="form-label" for="busca">
+    Buscar Fornecedor:
+   </label>
+   <input class="form-control" id="busca" placeholder="Digite o nome do fornecedor..." type="text"/>
+  </div>
+  <ul class="list-group mt-4" id="lista-vendas">
+  </ul>
+  <script>
+   document.addEventListener("DOMContentLoaded", () => {
+  const lista = document.getElementById("lista-vendas");
+  const busca = document.getElementById("busca");
+
+  const carregarVendas = async () => {
+    const res = await fetch("http://localhost:3000/vendas");
+    const vendas = await res.json();
+    const termo = busca.value.toLowerCase();
+    lista.innerHTML = "";
+    vendas
+      .filter(v => v.cliente.toLowerCase().includes(termo))
+      .forEach(v => {
+        const li = document.createElement("li");
+        li.className = "list-group-item";
+        li.textContent = `Cliente: ${v.cliente}, Produto: ${v.produto}, Quantidade: ${v.quantidade}`;
+        lista.appendChild(li);
+      });
+  };
+
+  busca.addEventListener("input", carregarVendas);
+  carregarVendas();
+});
+  </script>
+ </body>
+</html>
