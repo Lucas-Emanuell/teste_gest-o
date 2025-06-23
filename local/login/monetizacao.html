@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assinatura Premium</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e6f9ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            margin: 40px auto;
+            border: 1px solid #b3ecff;
+            transition: transform 0.3s;
+        }
+        
+        .container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background-color: #f0fdff;
+        }
+        
+        h1 {
+            color: #0077b3;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+        
+        .plan-card {
+            border: 2px solid #2dcfff;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            background-color: #f9fdff;
+        }
+        
+        .plan-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0077b3;
+            margin-bottom: 15px;
+        }
+        
+        .plan-price {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #2dcfff;
+        }
+        
+        .plan-description {
+            color: #555;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .plan-features {
+            text-align: left;
+            margin-bottom: 25px;
+            padding-left: 0;
+        }
+        
+        .plan-features li {
+            margin-bottom: 10px;
+            list-style-type: none;
+            padding-left: 30px;
+            position: relative;
+            color: #333;
+        }
+        
+        .plan-features li:before {
+            content: "✓";
+            color: #2dcfff;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .buy-button {
+            background-color: #2dcfff;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .buy-button:hover {
+            background-color: #00b7e6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(45, 207, 255, 0.3);
+        }
+        
+        .user-info {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f0fdff;
+            border-radius: 5px;
+            font-size: 14px;
+            border: 1px solid #b3ecff;
+        }
+        
+        .premium-badge {
+            color: #2dcfff;
+            font-weight: bold;
+        }
+        
+
+        .free-badge {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+        
+        footer {
+            background-color: #2dcfff;
+            text-align: center;
+            padding: 15px;
+            color: white;
+            margin-top: auto;
+        }
+        header {
+        background-color: #2dcfff;
+        text-align: center;
+        padding: 15px;
+      }
+        
+        .bi {
+            color: #2dcfff;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+   <header class="d-flex align-items-center justify-content-between p-3">
+   <a href="/local/login/index.html">
+   <img class="me-3" rel="logo" src="/locais/img/Logotipo.png" style="height: 75px;"/>
+   </a>
+  <div class="text-center flex-grow-1">
+    <h1 class="m-0">Gestão de Estoques</h1>
+    <p class="m-0">Cadastro e Gerenciamento de Fornecedores</p>
+  </div>
+</header>
+    <div class="container">
+        <h1><i class="bi bi-star-fill"></i> Assinatura Premium</h1>
+        
+        <div class="plan-card">
+            <div class="plan-name" id="planName">Premium</div>
+            <div class="plan-price" id="planPrice">R$ 19,90/mês</div>
+            <div class="plan-description" id="planDescription">Acesso completo a todos os recursos</div>
+            
+            <ul class="plan-features" id="planFeatures">
+                <li>Acesso ilimitado a locais</li>
+                <li>Gestão de múltiplos estabelecimentos</li>
+                <li>Relatórios detalhados</li>
+                <li>Suporte prioritário</li>
+                <li>Atualizações exclusivas</li>
+            </ul>
+            
+            <button class="buy-button" onclick="assinarPlano(1)">
+                <i class="bi bi-check-circle"></i> Assinar Premium
+            </button>
+        </div>
+        
+        <div class="user-info" id="userInfo">
+            <i class="bi bi-person"></i> Carregando informações do usuário...
+        </div>
+    </div>
+
+ <footer>
+    © 2025 - Sistema de Gestão de Estoque
+  </footer>
+
+    <script>
+        const API_URL = "http://localhost:3000/users";
+        
+        let usuarioCorrente = JSON.parse(sessionStorage.getItem('usuarioCorrente')) || {};
+        async function loadPlanData() {
+            try {
+                const responsePlans = await fetch('http://localhost:3000/plans');
+                const plans = await responsePlans.json();
+                const plan = plans[0];
+                document.getElementById('planName').textContent = plan.name;
+                document.getElementById('planPrice').textContent = `R$ ${plan.price.toFixed(2).replace('.', ',')}/mês`;
+                document.getElementById('planDescription').textContent = plan.description;
+                
+                const featuresList = document.getElementById('planFeatures');
+                featuresList.innerHTML = '';
+                plan.features.forEach(feature => {
+                    const li = document.createElement('li');
+                    li.textContent = feature;
+                    featuresList.appendChild(li);
+                });
+
+                if (usuarioCorrente.id) {
+                    const responseUser = await fetch(`${API_URL}/${usuarioCorrente.id}`);
+                    const userData = await responseUser.json();
+                    usuarioCorrente = userData;
+                    sessionStorage.setItem('usuarioCorrente', JSON.stringify(usuarioCorrente));
+                    
+                    updateUserInfo();
+                }
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+            }
+        }
+        function updateUserInfo() {
+            const userInfoDiv = document.getElementById('userInfo');
+            const status = usuarioCorrente.planId ? 
+                `<span class="premium-badge"><i class="bi bi-check-circle"></i> Premium Ativo</span>` : 
+                `<span class="free-badge"><i class="bi bi-exclamation-circle"></i> Plano Gratuito</span>`;
+            
+            userInfoDiv.innerHTML = `
+                <i class="bi bi-person"></i> Logado como: <strong>${usuarioCorrente.nome || 'Visitante'}</strong><br>
+                <i class="bi bi-envelope"></i> ${usuarioCorrente.email || 'Não logado'}<br>
+                <i class="bi bi-star"></i> Status: ${status}
+            `;
+        }
+        async function updateUserPlan(userId, planId) {
+            try {
+                const response = await fetch(`${API_URL}/${userId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        planId: planId
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Erro ao atualizar usuário');
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Erro ao atualizar plano do usuário:', error);
+                return false;
+            }
+        }
+        async function buyPlan() {
+            if (!usuarioCorrente.id) {
+                alert('Você precisa estar logado para assinar um plano');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            try {
+                const responsePlans = await fetch('http://localhost:3000/plans');
+                const plans = await responsePlans.json();
+                const plan = plans[0];
+                
+                const confirmed = confirm(`Deseja assinar o plano ${plan.name} por R$ ${plan.price.toFixed(2).replace('.', ',')}?`);
+                
+                if (confirmed) {
+                    const success = await updateUserPlan(usuarioCorrente.id, plan.id);
+                    
+                    if (success) {
+                        usuarioCorrente.planId = plan.id;
+                        sessionStorage.setItem('usuarioCorrente', JSON.stringify(usuarioCorrente));
+                        
+                        updateUserInfo();
+                        alert('Assinatura realizada com sucesso! Aproveite os recursos premium.');
+                        window.location.href = 'hub.html';
+                    } else {
+                        alert('Erro ao processar assinatura');
+                    }
+                }
+            } catch (error) {
+                console.error('Erro no processo de assinatura:', error);
+                alert('Ocorreu um erro durante a assinatura');
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!usuarioCorrente.id) {
+                alert('Você precisa estar logado para acessar esta página');
+                window.location.href = 'login.html';
+            } else {
+                loadPlanData();
+            }
+        });
+
+        async function assinarPlano(planId) {
+            const usuario = JSON.parse(sessionStorage.getItem("usuarioCorrente"));
+
+            if (!usuario || !usuario.id) {
+                alert("Você precisa estar logado para assinar o plano.");
+                window.location.href = "monetizacao.html";
+                return;
+            }
+
+            try {
+                const resposta = await fetch(`http://localhost:3001/users/${usuario.id}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ planId: planId })
+                });
+
+                if (!resposta.ok) throw new Error("Erro ao atualizar plano.");
+
+                const usuarioAtualizado = await resposta.json();
+                sessionStorage.setItem("usuarioCorrente", JSON.stringify(usuarioAtualizado));
+
+                alert("Plano assinado com sucesso! Agora você pode acessar a gestão de locais.");
+                window.location.href = "premium.html";
+            } catch (erro) {
+                console.error("Erro ao assinar plano:", erro);
+                alert("Erro ao processar a assinatura.");
+            }
+        }
+    </script>
+</body>
+</html>
+</body>
+</html>

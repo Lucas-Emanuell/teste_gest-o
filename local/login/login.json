@@ -1,0 +1,79 @@
+{
+  "users": [
+    {
+      "login": "eu",
+      "nome": "Artur Macena Pego",
+      "email": "thuzinmaster@gmail.com",
+      "cep": "30640-630",
+      "cidade": "Belo Horizonte",
+      "uf": "MG",
+      "senha": "12",
+      "created_at": "2025-06-22T15:27:33.859Z",
+      "planId": 1,
+      "id": "1750606053859"
+    },
+    {
+      "login": "teste",
+      "nome": "Artur Macena Pego",
+      "email": "thuzinmaster@gmail.com",
+      "cep": "30640-630",
+      "cidade": "Belo Horizonte",
+      "uf": "MG",
+      "senha": "12",
+      "created_at": "2025-06-22T15:40:08.669Z",
+      "planId": null,
+      "id": "1750606808669"
+    },
+    {
+      "login": "eu",
+      "nome": "Artur Macena Pego",
+      "email": "thuzinmaster@gmail.com",
+      "senha": "123",
+      "created_at": "2025-06-22T18:05:31.088Z",
+      "planId": 1,
+      "id": "1750615531283"
+    },
+    {
+      "id": "bb70",
+      "nome": "Artur Macena Pego",
+      "login": "artur",
+      "email": "thuzinmaster@gmail.com",
+      "senha": "123",
+      "cep": "30640-630",
+      "cidade": "Belo Horizonte",
+      "uf": "MG",
+      "planId": 1
+    },
+    {
+      "id": "ff2a",
+      "nome": "Artur Macena Pego",
+      "login": "teste",
+      "email": "thuzinmaster@gmail.com",
+      "senha": "456",
+      "cep": "30640-630",
+      "cidade": "Belo Horizonte",
+      "uf": "MG"
+    },
+    {
+      "id": "35c5",
+      "nome": "Artur Macena Pego",
+      "login": "Artur",
+      "email": "thuzinmaster@gmail.com",
+      "senha": "123",
+      "cep": "30640-630",
+      "cidade": "Belo Horizonte",
+      "uf": "MG"
+    },
+    {
+      "id": "2346",
+      "nome": "Artur Macena Pego",
+      "login": "artur",
+      "email": "thuzinmaster@gmail.com",
+      "senha": "123456",
+      "cep": "30640-630",
+      "cidade": "Belo Horizonte",
+      "uf": "MG",
+      "planId": 1
+    }
+  ]
+}

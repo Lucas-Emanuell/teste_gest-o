@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conteúdo Premium</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e6f9ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+            margin: 40px auto;
+            border: 1px solid #b3ecff;
+            transition: transform 0.3s;
+            position: relative; /* Added for back button positioning */
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #2dcfff;
+            color: rgb(0, 0, 0);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 1;
+        }
+        
+        .back-button:hover {
+            background-color: #0084a5;
+            transform: translateX(-3px);
+        }
+        
+        .container:hover {
+            transform: scale(1.01);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        h1 {
+            color: #0077b3;
+            margin-bottom: 25px;
+            font-weight: bold;
+            text-align: center;
+            padding-top: 10px; 
+        }
+        
+        h2 {
+            color: #2dcfff;
+            margin-bottom: 20px;
+        }
+        
+        .premium-content {
+            margin: 30px 0;
+            padding: 25px;
+            background-color: #f0fdff;
+            border-radius: 8px;
+            text-align: left;
+            border: 1px solid #b3ecff;
+        }
+        
+        .user-info {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f0fdff;
+            border-radius: 5px;
+            font-size: 14px;
+            border: 1px solid #b3ecff;
+        }
+        
+        .upgrade-banner {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: left;
+            display: none;
+            border-radius: 5px;
+        }
+        
+        .upgrade-button {
+            background-color: #2dcfff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        
+        .upgrade-button:hover {
+            background-color: #00b7e6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(45, 207, 255, 0.3);
+        }
+        
+        ul {
+            padding-left: 25px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            position: relative;
+            list-style-type: none;
+            padding-left: 30px;
+        }
+        
+        li:before {
+            content: "✓";
+            color: #2dcfff;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .premium-badge {
+            color: #2dcfff;
+            font-weight: bold;
+        }
+        
+        footer {
+            background-color: #2dcfff;
+            text-align: center;
+            padding: 15px;
+            color: white;
+            margin-top: auto;
+        }
+        
+        .bi {
+            color: #2dcfff;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="navigateTo('hub.html')">
+            <i class="bi bi-arrow-left"></i>
+        </button>
+        
+        <h1><i class="bi bi-stars"></i> Conteúdo Premium</h1>
+        
+        <div class="user-info" id="userInfo">
+            <i class="bi bi-person"></i> Carregando informações do usuário...
+        </div>
+        
+        <div class="upgrade-banner" id="upgradeBanner">
+            <h3><i class="bi bi-lock"></i> Conteúdo Bloqueado</h3>
+            <p>Você precisa de uma assinatura premium para acessar este conteúdo.</p>
+            <button class="upgrade-button" id="upgradeButton">
+                <i class="bi bi-star-fill"></i> Assinar Agora
+            </button>
+        </div>
+        
+        <div class="premium-content" id="conteudo-premium" style="display:none;">
+            <h2><i class="bi bi-unlock"></i> Bem-vindo ao conteúdo exclusivo!</h2>
+            <p>Este é o conteúdo especial disponível apenas para assinantes premium.</p>
+            <ul>
+                <li>Recurso exclusivo 1</li>
+                <li>Recurso exclusivo 2</li>
+                <li>Recurso exclusivo 3</li>
+                <li>Acesso prioritário a novas funcionalidades</li>
+                <li>Suporte 24/7 dedicado</li>
+            </ul>
+            <p>Obrigado por assinar nosso plano premium!</p>
+        </div>
+    </div>
+
+      <footer>
+         © 2025 - Sistema de Gestão de Estoque
+      </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const usuario = JSON.parse(sessionStorage.getItem("usuarioCorrente"));
+            const userInfoDiv = document.getElementById("userInfo");
+            const upgradeBanner = document.getElementById("upgradeBanner");
+            const premiumContent = document.getElementById("conteudo-premium");
+
+            if (!usuario || !usuario.id) {
+                alert("Você precisa estar logado.");
+                window.location.href = "login.html";
+                return;
+            }
+            userInfoDiv.innerHTML = `
+                <i class="bi bi-person"></i> Logado como: <strong>${usuario.nome || 'Visitante'}</strong><br>
+                <i class="bi bi-envelope"></i> ${usuario.email || 'Não logado'}<br>
+                <i class="bi bi-star"></i> Status: <span class="premium-badge">Premium Ativo</span>
+            `;
+
+            if (!usuario.planId) {
+                upgradeBanner.style.display = "block";
+                document.getElementById("upgradeButton").addEventListener("click", () => {
+                    window.location.href = "monetizacao.html";
+                });
+            } else {
+                premiumContent.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>

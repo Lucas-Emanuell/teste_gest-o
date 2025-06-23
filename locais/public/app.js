@@ -81,12 +81,10 @@ async function editarLocal(id) {
 }
 
 async function deletarLocal(id) {
-  if (confirm("Deseja realmente excluir este local?")) {
     await fetch(`${API_URL}/${id}`, {
       method: "DELETE"
     });
     carregarLocais();
-  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {

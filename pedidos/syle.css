@@ -1,0 +1,131 @@
+body { 
+    background-color: #f2f6fc; 
+    font-family: Arial, sans-serif;
+}
+
+header, footer {
+    background-color: #2dcfff;
+    text-align: center;
+    padding: 15px;
+    color: white;
+}
+
+.form-container, .table-container {
+    background-color: #9ee8ff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.table-container {
+    padding: 30px;
+}
+
+h1, h2 {
+    color: #003366;
+}
+
+.form-label {
+    font-weight: bold;
+    color: #003366;
+}
+
+.form-control, .form-select {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 8px;
+}
+
+.btn {
+    padding: 10px 15px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #0059b3;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #004080;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 12px;
+    border: 1px solid #dee2e6;
+    text-align: left;
+}
+
+.table th {
+    background-color: #cce0ff;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.btn-excluir {
+    background-color: #cc0000;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 3px;
+}
+
+.btn-excluir:hover {
+    background-color: #990000;
+}
+
+.btn-editar {
+    background-color: #e69500;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 3px;
+}
+
+.btn-editar:hover {
+    background-color: #cc7a00;
+}
+
+.delete-button { 
+    background-color: #ff4c4c; 
+    color: white; 
+}
+
+
+#tabelaPedidos {
+    width: 100%;
+}
+
+#tabelaPedidos th {
+    background-color: #cce0ff;
+}
+
+
+@media (max-width: 768px) {
+    .form-container, .table-container {
+        padding: 15px;
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

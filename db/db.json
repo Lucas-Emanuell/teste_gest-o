@@ -1,344 +1,185 @@
 {
-  "categoria": [
+  "categorias": [
     {
-      "nome": "ALIMENTO",
-      "descricao": "feijao",
-      "data": "2025-06-21",
-      "vinculada": false,
-      "id": "d356"
+      "nome": "alimentícia",
+      "descricao": "produtos alimenticios",
+      "data": "2025-06-01",
+      "id": "67de"
     },
     {
-      "id": "d5bf",
-      "nome": "ALIMENTO",
-      "descricao": "arroz",
-      "data": "2025-06-16",
-      "vinculada": true
-    },
-    {
-      "nome": "ALIMENTO",
-      "descricao": "feijao",
-      "data": "2025-06-21",
-      "vinculada": false,
-      "id": "d356"
-    },
-    {
-      "id": "d5bf",
-      "nome": "ALIMENTO",
-      "descricao": "arroz",
-      "data": "2025-06-16",
-      "vinculada": true
-    },
-    {
-      "id": "acb7",
-      "nome": "teste",
-      "descricao": "teste5",
-      "data": "2025-06-16",
-      "vinculada": false
+      "nome": "eletrônicos",
+      "descricao": "eletrodomésticos",
+      "data": "2025-06-19",
+      "id": "f2f5"
     }
   ],
   "locais": [
     {
-      "id": "L001",
-      "nome": "pratileira 1",
-      "responsavel": "João",
-      "capacidade": 100,
-      "status": "Vazio",
-      "produto": "Nenhum",
-      "descricao": "Estoque principal da empresa"
-    },
-    {
-      "id": "1",
-      "nome": "pratileira 1",
-      "responsavel": "João",
-      "capacidade": "100",
-      "status": "Vazio",
-      "produto": "Nenhum",
-      "descricao": "Estoque principal da empresa"
-    },
-    {
-      "id": "id",
-      "nome": "nome",
-      "responsavel": "alguem",
-      "capacidade": "10",
-      "status": "Cheio",
-      "produto": "produto",
-      "descricao": "algo"
-    },
-    {
-      "id": "l009",
+      "id": "12345",
       "nome": "teste",
       "responsavel": "eu",
-      "capacidade": "9",
-      "status": "Vazio",
+      "capacidade": "8",
+      "status": "Cheio",
       "produto": "JBL Tune 520BT",
-      "descricao": "ok"
+      "descricao": "JBL tune 520t"
     }
   ],
   "produtos": [
     {
-      "id": "098",
-      "nome": "borracha",
-      "sku": "098",
-      "categoria": "Eletrônico",
-      "precoVenda": 12,
-      "estoque": 12,
-      "fornecedor": "Luis",
-      "dataEntrada": "2025-06-26"
-    },
-    {
-      "id": "098",
-      "nome": "sabão",
-      "sku": "098",
-      "categoria": "Eletrônico",
-      "precoVenda": 98,
-      "estoque": 12,
-      "fornecedor": "Luis",
-      "dataEntrada": "2025-06-26"
-    },
-    {
-      "id": "1",
-      "codigo": "0223",
-      "descricao": "Arroz",
-      "und": "pct",
-      "quantidade": "10",
-      "preco": 12.98
-    },
-    {
-      "id": "2",
-      "codigo": "1432",
-      "descricao": "Feijão",
-      "und": "pct",
-      "quantidade": "12",
-      "preco": 9.98
-    },
-    {
-      "id": "3",
-      "codigo": "1253",
-      "descricao": "Macarrão",
-      "und": "pct",
-      "quantidade": "75",
-      "preco": 7.9
-    },
-    {
-      "id": "4",
-      "codigo": "1762",
-      "descricao": "Biscoito",
-      "und": "pct",
-      "quantidade": "52",
-      "preco": 4.58
-    },
-    {
-      "id": "4554",
-      "nome": "sabão",
-      "sku": "4554",
+      "id": "0002",
+      "nome": "Sabão",
+      "sku": "0002",
       "categoria": "Limpeza",
-      "precoVenda": 5,
-      "estoque": 12,
+      "precoVenda": 10,
+      "estoque": 20,
       "fornecedor": "LimpaTudo",
-      "dataEntrada": "2025-06-17"
+      "dataEntrada": "2025-06-15"
     },
     {
-      "id": "098675",
-      "nome": "sabão",
-      "sku": "098675",
-      "categoria": "Limpeza",
-      "precoVenda": 6,
-      "estoque": 12,
-      "fornecedor": "BoiDaCasa",
-      "dataEntrada": "2025-06-05"
-    }
-  ],
-  "usuarios": [
-    {
-      "id": "1",
-      "nome": "João Silva",
-      "email": "joao@exemplo.com",
-      "senha": "123456",
-      "premium": true,
-      "beneficios": {
-        "armazenamento": true,
-        "contatos": false,
-        "info": true,
-        "ilimitado": false
-      },
-      "dataCadastro": "2023-11-20T12:00:00.000Z"
+      "id": "0003",
+      "nome": "arroz",
+      "sku": "0003",
+      "categoria": "Alimentícia",
+      "precoVenda": 14,
+      "estoque": 26,
+      "fornecedor": "supermercados Bh",
+      "dataEntrada": "2025-06-23"
     },
     {
-      "id": "1",
-      "nome": "João Silva",
-      "email": "joao@exemplo.com",
-      "senha": "123456",
-      "premium": true,
-      "beneficios": {
-        "armazenamento": true,
-        "contatos": false,
-        "info": true,
-        "ilimitado": false
-      },
-      "dataCadastro": "2023-11-20T12:00:00.000Z"
+      "id": "0004",
+      "nome": "arroz integral",
+      "sku": "0004",
+      "categoria": "Alimentícia",
+      "precoVenda": 20,
+      "estoque": 39,
+      "fornecedor": "supermercados bh",
+      "dataEntrada": "2025-06-22"
     }
   ],
   "pedidos": [
     {
-      "produto": "JBL Tune 520BT",
-      "quantidade": 30,
-      "fornecedor": "JBL",
-      "id": "577b"
+      "produto": "JBL Tune 520BT teste",
+      "quantidade": 43,
+      "fornecedor": "TeckMeck",
+      "id": "4a83"
     },
     {
-      "produto": "iPhone 15 Plus",
-      "quantidade": 40,
-      "fornecedor": "Apple",
-      "id": "bd03"
+      "id": "4b55",
+      "produto": "JBL Tune 520BT teste",
+      "quantidade": 14,
+      "fornecedor": "TeckMeck"
     }
   ],
   "fornecedores": [
     {
-      "id": "2",
-      "nome": "Construmais Materiais",
-      "descricao": "Materiais de construção civil e aluguel de ferramentas.",
-      "endereco": "Rua dos Engenheiros, 205 - Belo Horizonte, MG",
-      "email": "comercial@construmais.com.br"
-    },
-    {
-      "id": "3",
-      "nome": "HigienePro Distribuidora",
-      "descricao": "Produtos de limpeza profissional e descartáveis hospitalares.",
-      "endereco": "Alameda das Indústrias, 98 - Curitiba, PR",
-      "email": "vendas@higienepro.com.br"
-    },
-    {
-      "id": "2563",
       "nome": "Artur Macena Pego",
-      "descricao": "sabokgf",
+      "descricao": "vamoooo",
+      "endereco": "Rua Educador Manoel de Almeida, 89",
+      "email": "thuzinmaster@gmail.com",
+      "id": "5417"
+    },
+    {
+      "id": "9044",
+      "nome": "Artur Macena Pego",
+      "descricao": "google",
+      "endereco": "Rua Educador Manoel de Almeida, 89",
+      "email": "thuzinmaster@gmail.com"
+    },
+    {
+      "id": "0fc6",
+      "nome": "teste",
+      "descricao": "produto de limpeza",
+      "endereco": "Rua Educador Manoel de Almeida, 89",
+      "email": "thuzinmaster@gmail.com"
+    },
+    {
+      "id": "fd39",
+      "nome": "Artur Macena Pego",
+      "descricao": "4",
+      "endereco": "Rua Educador Manoel de Almeida, 89",
+      "email": "thuzinmaster@gmail.com"
+    },
+    {
+      "id": "b278",
+      "nome": "Artur Macena Pego",
+      "descricao": "produto de limpeza",
       "endereco": "Rua Educador Manoel de Almeida, 89",
       "email": "thuzinmaster@gmail.com"
     }
   ],
   "vendas": [
     {
-      "id": "a072",
-      "vendedor": "joão",
-      "num_pedido": "419535",
-      "data": "08/06/2025",
-      "pagamento": "pix",
-      "itens": [
-        {
-          "codigo": "0223",
-          "descricao": "Arroz",
-          "und": "pct",
-          "preco": 12.98,
-          "quantidade": 6,
-          "total": 77.88
-        },
-        {
-          "codigo": "1762",
-          "descricao": "Biscoito",
-          "und": "pct",
-          "preco": 4.58,
-          "quantidade": 1,
-          "total": 4.58
-        }
-      ]
-    },
-    {
-      "id": "3b50",
-      "vendedor": "joão",
-      "num_pedido": "447183",
-      "data": "08/06/2025",
+      "id": "8ac0",
+      "data": "2025-06-21",
       "pagamento": "Pix",
       "itens": [
         {
-          "codigo": "1432",
-          "descricao": "Feijão",
-          "und": "pct",
-          "quantidade": 12,
-          "preco": 9.98,
-          "total": 119.76
+          "codigo": "0001",
+          "descricao": "Mouse Gamer",
+          "und": "un",
+          "preco": 9,
+          "quantidade": 3,
+          "total": 27
         }
       ]
     },
     {
-      "id": "69b9",
-      "vendedor": "joão",
-      "num_pedido": "149979",
-      "data": "08/06/2025",
+      "id": "aa46",
+      "data": "2025-06-22",
       "pagamento": "Dinheiro",
       "itens": [
         {
-          "codigo": "0223",
-          "descricao": "Arroz",
-          "und": "pct",
+          "codigo": "0002",
+          "descricao": "Sabão",
+          "und": "un",
+          "preco": 4,
+          "quantidade": 3,
+          "total": 12
+        }
+      ]
+    },
+    {
+      "id": "8594",
+      "data": "2025-06-22",
+      "pagamento": "Cartão de Débito",
+      "itens": [
+        {
+          "codigo": "0001",
+          "descricao": "Mouse Gamer",
+          "und": "un",
+          "preco": 9,
+          "quantidade": 1,
+          "total": 9
+        }
+      ]
+    },
+    {
+      "id": "2701",
+      "data": "2025-06-22",
+      "pagamento": "Cartão de Crédito",
+      "itens": [
+        {
+          "codigo": "0002",
+          "descricao": "Sabão",
+          "und": "un",
+          "preco": 4,
           "quantidade": 5,
-          "preco": 12.98,
-          "total": 64.9
-        },
-        {
-          "codigo": "1432",
-          "descricao": "Feijão",
-          "und": "pct",
-          "quantidade": 2,
-          "preco": 9.98,
-          "total": 19.96
-        },
-        {
-          "codigo": "1253",
-          "descricao": "Macarrão",
-          "und": "pct",
-          "quantidade": 1,
-          "preco": 7.9,
-          "total": 7.9
+          "total": 20
         }
       ]
     },
     {
-      "id": "5f21",
-      "vendedor": "joão",
-      "num_pedido": "162423",
-      "data": "08/06/2025",
-      "pagamento": "Dinheiro",
+      "id": "6d07",
+      "data": "2025-06-23",
+      "pagamento": "Cartão de Crédito",
       "itens": [
         {
-          "codigo": "1762",
-          "descricao": "Biscoito",
-          "und": "pct",
-          "quantidade": 15,
-          "preco": 4.58,
-          "total": 68.7
-        }
-      ]
-    },
-    {
-      "id": "981e",
-      "vendedor": "joão",
-      "num_pedido": "167511",
-      "data": "08/06/2025",
-      "pagamento": "Pix",
-      "itens": [
-        {
-          "codigo": "0223",
-          "descricao": "Arroz",
-          "und": "pct",
-          "quantidade": 1,
-          "preco": 12.98,
-          "total": 12.98
-        }
-      ]
-    },
-    {
-      "id": "1b7c",
-      "vendedor": "joão",
-      "num_pedido": "353688",
-      "data": "13/06/2025",
-      "pagamento": "Dinheiro",
-      "itens": [
-        {
-          "codigo": "0223",
-          "descricao": "Arroz",
-          "und": "pct",
-          "quantidade": 1,
-          "preco": 12.98,
-          "total": 12.98
+          "codigo": "0004",
+          "descricao": "arroz integral",
+          "und": "un",
+          "preco": 20,
+          "quantidade": 3,
+          "total": 60
         }
       ]
     }

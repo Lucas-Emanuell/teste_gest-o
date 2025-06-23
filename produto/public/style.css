@@ -8,7 +8,7 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to bottom, #68abee, #aed1e7);
+  background-color: #f2f6fc !important;
   color: #333;
   display: flex;
   flex-direction: column;
@@ -22,12 +22,12 @@ body {
 }
 
 header {
-  background: linear-gradient(to right, #00b4db, #0083b0);
+  background-color: #2dcfff;
   color: #000;
   padding: 20px;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  height: 120px;
+  height: 110px;
 }
 
 header h1 {
@@ -53,7 +53,7 @@ section {
 }
 
 .form-section {
-  background-color: #35663579;
+  background-color: #9ee8ff;
   padding: 25px;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -62,7 +62,6 @@ section {
 .form-section h2 {
   margin-bottom: 20px;
   font-size: 1.4rem;
-  color: #222020;
 }
 
 form {
@@ -81,31 +80,23 @@ form input {
 form button {
   grid-column: span 1;
   padding: 12px;
-  background: linear-gradient(to bottom, #a8e063, #56ab2f);
-  color: rgb(35, 54, 35);
+  background-color: #007BFF;
+  color: rgb(255, 255, 255);
   border: none;
   border-radius: 6px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-form button:hover {
-   background: linear-gradient(to right, #56ab2f, #a8e063);
 }
 
 .lista-section h2 {
   margin-bottom: 15px;
-  color: #222020;
+  color: #000000;
 }
 
 .lista-section table {
   width: 100%;
-  border-collapse: collapse;
-  background-color: #d7ddf1;
+  background-color: #c4d6f5;
   border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .lista-section th, .lista-section td {
@@ -115,8 +106,9 @@ form button:hover {
 }
 
 .lista-section th {
-  background-color: #6198e6;
+  background-color: #007BFF;
   font-weight: bold;
+  color: white;
 }
 
 .btn-excluir {
@@ -136,7 +128,7 @@ form button:hover {
 }
 
 .btn-editar {
-  background: linear-gradient(to right, #4077d6, #9141e7);
+  background-color: #e69500;
   color: white;
   padding: 6px 12px;
   border: none;
@@ -146,24 +138,17 @@ form button:hover {
   margin-right: 5px;
   transition: background-color 0.2s;
   width: 100px;
-}
-
-.btn-editar:hover {
-  background: linear-gradient(to right, #3977e0, #7933cf);
-}
-
+} 
+  .btn-editar:hover {
+      background-color: #a76503;
+ }
 
 footer {
-  background: linear-gradient(to right, #00b4db, #0083b0);
-  color: #000;
-  text-align: center;
-  padding: 20px;
-  font-size: 1rem;
-  height: 80px;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  justify-content: center;
+
+    background-color: #2dcfff;
+    text-align: center;
+    padding: 15px;
+    
 }
 
 @media (max-width: 600px) {

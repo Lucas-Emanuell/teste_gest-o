@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Início | Sistema de Gestão</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    
+    body {
+      display: flex;
+      flex-direction: column;
+      background-color: #f2f6fc;
+    }
+    
+    header {
+      background-color: #2dcfff;
+      text-align: center;
+      padding: 15px;
+      flex-shrink: 0;
+    }
+    
+    .container {
+      flex: 1 0 auto;
+      padding-bottom: 60px; 
+    }
+    
+    footer {
+      background-color: #2dcfff;
+      text-align: center;
+      padding: 15px;
+      flex-shrink: 0;
+      margin-top: auto;
+    }
+    
+    .main-container {
+      background-color: #9ee8ff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin: 30px auto;
+      max-width: 900px;
+      text-decoration: none;
+    }
+    
+    h1, h2 {
+      color: #333;
+    }
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1em;
+    }
+    
+    li {
+      background: #2dcfff;
+      padding: 1.5em;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    
+    li:hover {
+      transform: translateY(-5px);
+    }
+    
+    a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    
+    a:hover {
+      text-decoration: none;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <header class="d-flex align-items-center justify-content-center p-3">
+    <div class="text-center">
+      <h1 class="m-0">Sistema de Gestão</h1>
+      <p class="m-0">Página Inicial</p>
+    </div>
+  </header>
+  
+  <div class="container">
+    <div class="main-container">
+      <h2 class="text-center mb-4">Áreas de Gestão de Estoque</h2>
+      <ul>
+        <li><a href="/produto/public/produto.html">Produtos</a></li>
+        <li><a href="/fornecedor/fornecedores.html">Fornecedores</a></li>
+        <li><a href="/categorias/categorias.html">Categorias</a></li>
+        <li><a href="/venda/public/paginaVenda.html">Vendas</a></li>
+        <li><a href="/local/login/hub.html">Locais</a></li>
+        <li><a href="/pedidos/pedido.html">Pedidos</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <footer>
+    © 2025 - Sistema de Gestão de Estoque
+  </footer>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
